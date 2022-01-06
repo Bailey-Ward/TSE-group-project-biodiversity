@@ -21,13 +21,11 @@ def mergeSort(medalTable):
             while i < len(left) and j < len(right):
                 if left[i][1:] >= right[j][1:]:
                     # The left side has moved
-                    medalTable[k] = left[i]
-                    # 1 is added to the iterator 
+                    medalTable[k] = left[i] 
                     i += 1
                 else:
                     # The right side has moved
                     medalTable[k] = right[j]
-                    # 1 is added to the iterator
                     j += 1
                 # The next medal list is moved to
                 k += 1
@@ -63,11 +61,8 @@ def rank_team(file_name):
     
     #Opens/creates the new file in write mode with '' as the delimiter
     with open('medal_table.csv', 'w', newline='') as file2:
-        #creates the CSV writer
         writer = csv.writer(file2)
-        #writes the header to the CSV file
         writer.writerow(header)
-        #writes the sorted row data to the CSV file
         writer.writerows(rows)
 
 # Program main --- Do not change the code below but feel free to comment out 
