@@ -54,7 +54,7 @@ if __name__ == '__main__':
     ]
 
     # make sure 'option=2' is used in your submission
-    option = 3
+    option = 2
 
     if option == 1:
         sudoku = sudoku1
@@ -69,6 +69,10 @@ if __name__ == '__main__':
 
     # add code here to solve the sudoku
 
+
+
+
+
     def computer_play(sudoku):
         find = find_space(sudoku)
         if not find:
@@ -77,13 +81,13 @@ if __name__ == '__main__':
             row, col, = find
         
         for i in range(1,10):
-            if is_valid(sudoku, i, (row, col)):
-                sudoku[row][col] = i
+            if is_valid(sudoku, str(i), (row, col)):
+                sudoku[row][col] = str(i)
 
                 if computer_play(sudoku):
                     return True
                 
-                sudoku[row][col] = ' '
+                sudoku[row][col] = ' ' #resets value if incorrect
         return False   
         
     
@@ -105,6 +109,7 @@ if __name__ == '__main__':
                 if sudoku[i][j] == num and (i,j) != pos:
                     return False
         return True
+        
     def print_board(sudoku):
         for i in range(9):
             print(sudoku[i][0:3],'|',sudoku[i][3:6],'|',sudoku[i][6:9])
