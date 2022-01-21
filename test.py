@@ -69,7 +69,7 @@ if __name__ == '__main__':
 
     # add code here to solve the sudoku
 
-
+    start_time = time.time()
 
 
 
@@ -146,9 +146,14 @@ if __name__ == '__main__':
 
         pass
 
+end_time = time.time()
 
 print(" ")
 
 computer_play(sudoku)
 
 print_board(sudoku)
+
+execution_time = end_time - start_time
+
+print("\nThis sudoku puzzle was completed in:","%.4f" % execution_time, "seconds!" )
