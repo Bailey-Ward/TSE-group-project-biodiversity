@@ -54,7 +54,7 @@ if __name__ == '__main__':
     ]
 
     # make sure 'option=2' is used in your submission
-    option = 2
+    option = int(input("Choose between puzzles 1-4:  "))
 
     if option == 1:
         sudoku = sudoku1
