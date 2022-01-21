@@ -69,10 +69,12 @@ if __name__ == '__main__':
 
     # add code here to solve the sudoku
 
+    #takes the time which the program starts at
     start_time = time.time()
 
-
-
+    #funnction for recursive computer solution
+    #calls find to detect empty boxes, then fills the box with an integer between 1-9, and checks if it is a valid input
+    #if not, value is reset to ' ' and the function keeps calling itself until all boxes are filled or a solution cannot be found
     def computer_play(sudoku):
         find = find_space(sudoku)
         if not find:
@@ -89,8 +91,6 @@ if __name__ == '__main__':
                 
                 sudoku[row][col] = ' ' #resets value if incorrect
         return False   
-        
-    
 
     def is_valid(sudoku, num, pos):
         for i in range(len(sudoku[0])):  #checks row
@@ -101,7 +101,7 @@ if __name__ == '__main__':
             if sudoku[i][pos[1]] == num and pos[0] !=i:
                 return False
 
-        box_x = pos[1] // 3  #checks positions 
+        box_x = pos[1] // 3  #checks positions
         box_y = pos[0] // 3
 
         for i in range(box_y * 3, box_y*3 + 3 ):
@@ -110,6 +110,7 @@ if __name__ == '__main__':
                     return False
         return True
         
+        #prints board with lines
     def print_board(sudoku):
         for i in range(9):
             print(sudoku[i][0:3],'|',sudoku[i][3:6],'|',sudoku[i][6:9])
@@ -133,20 +134,11 @@ if __name__ == '__main__':
 
         pass
 
-
-
-
-
-
-
-
-
-
     def human_play():
 
         pass
 
-end_time = time.time()
+end_time = time.time() # takes the time the program ends at
 
 print(" ")
 
@@ -156,4 +148,5 @@ print_board(sudoku)
 
 execution_time = end_time - start_time
 
+#prints execution time for the program to 4 decimal figures
 print("\nThis sudoku puzzle was completed in:","%.4f" % execution_time, "seconds!" )
