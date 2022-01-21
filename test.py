@@ -150,3 +150,5 @@ execution_time = end_time - start_time
 
 #prints execution time for the program to 4 decimal figures
 print("\nThis sudoku puzzle was completed in:","%.4f" % execution_time, "seconds!" )
+
+#BW
