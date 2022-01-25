@@ -61,6 +61,8 @@ if __name__ == '__main__':
     #function for recursive computer solution
     #calls find to detect empty boxes, then fills the box with an integer between 1-9, and checks if it is a valid input
     #if not, value is reset to ' ' and the function keeps calling itself until all boxes are filled or a solution cannot be found
+    turns_taken = 0
+    
     def computer_play(sudoku):
         find = find_space(sudoku)
         if not find:
@@ -72,10 +74,12 @@ if __name__ == '__main__':
             if is_valid(sudoku, str(i), (row, col)):
                 sudoku[row][col] = str(i)
                 if computer_play(sudoku):
+                    global turns_taken
+                    turns_taken += 1
                     return True
-                
-                sudoku[row][col] = ' ' #resets value if incorrect
-        return False   
+                sudoku[row][col] = ' ' #resets value if incorrect 
+        return False 
+        
 
     def is_valid(sudoku, num, pos):
         for i in range(len(sudoku[0])):  #checks row
@@ -159,9 +163,7 @@ if __name__ == '__main__':
                 end_time = time.time()      # takes the time computer play ends at
                 execution_time = end_time - start_time
                 print("\nThis sudoku puzzle was completed in:","%.4f" % execution_time, "seconds!" )     #prints execution time for the program to 4 decimal figures
-                print("\nThis sudoku puzzle was completed in:" ,"turns!")
-
-
+                print("\nThis sudoku puzzle was completed in:", turns_taken ,"turns!")
             elif game_type == 3:
                 break
             else:
