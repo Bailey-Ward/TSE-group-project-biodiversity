@@ -2,6 +2,7 @@
 from ast import While
 from operator import truediv
 import time, sys, random
+from turtle import pos
 
 # add your implementation of the required functions here
 
@@ -55,19 +56,9 @@ if __name__ == '__main__':
     ]
 
     # make sure 'option=2' is used in your submission
+    # add code here to solve the sudoku
 
-
-
-        
-
-        # add code here to solve the sudoku
-
-
-
-    
-
-
-    #funnction for recursive computer solution
+    #function for recursive computer solution
     #calls find to detect empty boxes, then fills the box with an integer between 1-9, and checks if it is a valid input
     #if not, value is reset to ' ' and the function keeps calling itself until all boxes are filled or a solution cannot be found
     def computer_play(sudoku):
@@ -119,23 +110,28 @@ if __name__ == '__main__':
         return None          
             
 
-    def update_board():
+    def update_board(row,col,num):
+        sudoku[row-1][col-1] = num
+        print_board(sudoku)
 
-        pass
 
     def game_state():
-
-        pass
+        if is_valid == False:
+            print("Puzzle successfully solved")
 
     def human_play():
+        row = int(input("Select the row you wish to edit: "))
+        col = int(input("Select which column you wish to edit: "))
+        num = str(input("Select the number you wish to insert to this position: "))
+        pos = [col][row]
 
-        pass
             
-    #prints execution time for the program to 4 decimal figures
 
 
+    
     while True:
-        option = int(input("Choose between puzzles 1-4 or press 5 to exit:\t"))
+        print("Welcome to the main menu!\n")
+        option = int(input("Choose between puzzles 1-4 or press 5 to exit:\n"))
         if option == 1:
             sudoku = sudoku1
         elif option == 2:
@@ -145,7 +141,7 @@ if __name__ == '__main__':
         elif option == 4:
             sudoku = sudoku4
         elif option == 5:
-            print("Thank you for playing")
+            print("\nThank you for playing!")
             break
         else:
             raise ValueError('Invalid choice!')
@@ -154,6 +150,7 @@ if __name__ == '__main__':
             start_time = time.time() #takes the time which the program starts at
             if game_type == 1:
                 human_play()
+
             elif game_type == 2:
                 print_board(sudoku)
                 print(" ")
@@ -161,8 +158,9 @@ if __name__ == '__main__':
                 print_board(sudoku)
                 end_time = time.time()      # takes the time computer play ends at
                 execution_time = end_time - start_time
-                print("\nThis sudoku puzzle was completed in:","%.4f" % execution_time, "seconds!" )
+                print("\nThis sudoku puzzle was completed in:","%.4f" % execution_time, "seconds!" )     #prints execution time for the program to 4 decimal figures
                 print("\nThis sudoku puzzle was completed in:" ,"turns!")
+
 
             elif game_type == 3:
                 break
