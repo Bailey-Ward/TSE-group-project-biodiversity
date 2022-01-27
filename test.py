@@ -1,8 +1,5 @@
 # import libraries here. Use the following ones only.
-from ast import While
-from operator import truediv
 import time, sys, random
-from turtle import pos
 
 # add your implementation of the required functions here
 
@@ -75,8 +72,6 @@ if __name__ == '__main__':
             if is_valid(sudoku, str(i), (row, col)):
                 sudoku[row][col] = str(i)
                 if computer_play(sudoku):
-                    global turns_taken
-                    turns_taken += 1
                     return True
                 sudoku[row][col] = ' ' #resets value if incorrect 
         return False 
@@ -97,6 +92,8 @@ if __name__ == '__main__':
         for i in range(box_y * 3, box_y*3 + 3 ):    #checks the 3x3 box to make sure all is valid
             for j in range(box_x*3, box_x*3 +3):
                 if sudoku[i][j] == num and (i,j) != pos:
+                    global turns_taken
+                    turns_taken += 1
                     return False
         return True
         
