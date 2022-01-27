@@ -120,10 +120,13 @@ if __name__ == '__main__':
         sudoku[row-1][col-1] = num
         print_board(sudoku)
 
-
-    def game_state():
-        if is_valid == False:
-            print("Puzzle successfully solved")
+    def game_state(sudoku):
+        for i in range(9):
+            for j in sudoku[i]:
+                if j != ' ':
+                    return "The puzzle has been solved."
+                else:
+                    return "The puzzle could not be solved."
 
     def human_play():
         row = int(input("Select the row you wish to edit: "))
@@ -151,29 +154,24 @@ if __name__ == '__main__':
             raise ValueError('Invalid choice!')
         #1 selects computer play, 2 selects human play(not implemented) and 3 returns to the above menu
         while True:
-            game_type = int(input("Computer = 1, Human = 2, return to menu = 3:\t"))
+            game_type = int(input("Computer = 1, Human = 2, return to menu = 3:\t\n"))
             start_time = time.time() #takes the time which the program starts at
             if game_type == 1:
                 print_board(sudoku)
                 print(" ")
                 computer_play(sudoku)
                 print_board(sudoku)
+                print(game_state(sudoku))
                 end_time = time.time()      # takes the time computer play ends at
                 execution_time = end_time - start_time
                 print("\nThis sudoku puzzle was completed in:","%.4f" % execution_time, "seconds!" )     #prints execution time for the program to 4 decimal figures
-                print("\nThis sudoku puzzle was completed in:", turns_taken ,"turns!")
+                print("This sudoku puzzle was completed in:", turns_taken ,"turns!\n")
             elif game_type == 2:
                 human_play()
             elif game_type == 3:
                 break
             else:
                 raise ValueError('invalid choice2')
-
-
-
-
-            
-
 
             #BW
 
