@@ -78,6 +78,8 @@ if __name__ == '__main__':
         
     #this function ensures that all numbers are valid 
     def is_valid(sudoku, num, pos):
+        global turns_taken
+        turns_taken += 1
         for i in range(len(sudoku[0])):  #checks row
             if sudoku[pos[0]][i] == num and pos[1] != i:
                 return False
@@ -92,8 +94,7 @@ if __name__ == '__main__':
         for i in range(box_y * 3, box_y*3 + 3 ):    #checks the 3x3 box to make sure all is valid
             for j in range(box_x*3, box_x*3 +3):
                 if sudoku[i][j] == num and (i,j) != pos:
-                    global turns_taken
-                    turns_taken += 1
+
                     return False
         return True
         
@@ -112,11 +113,12 @@ if __name__ == '__main__':
                     return (i, j) #row, column
         return None          
             
-
+    #unfinished update board function
     def update_board(row,col,num):
         sudoku[row-1][col-1] = num
         print_board(sudoku)
 
+    #checks to see if any ' ' are left, if not a message is returned to say the puzzle has been solved
     def game_state(sudoku):
         for i in range(9):
             for j in sudoku[i]:
