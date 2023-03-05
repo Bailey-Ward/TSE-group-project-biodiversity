@@ -1,15 +1,9 @@
-import os
+import geopandas
 
-class fileReader:
-	path = " "
-	os.chdir(path)
+fileLocation = (input("Enter the name of the file you wish to read (Example: C:/TSE datasets/CoL_LGS_21-22.tab)"))
 
-	def readFile(file_path):
-		with open(file_path, 'r') as f:
-			print (f.read())
-
-	for file in os.listdir():
-		if file.endswith(".IND" or ".ID" or ".MAP" or ".DAT"):
-			file_path = f"{path}\{file}"
-
-			readFile(file_path)
+try:
+    test = geopandas.read_file(fileLocation)
+    print(test)
+except:
+    print("File could not be found")
