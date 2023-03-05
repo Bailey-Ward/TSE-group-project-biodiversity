@@ -1,16 +1,26 @@
-menu = False
-userChoice = 0
+from fileReader import dataSetReader
 
 
-while menu == False:
-    if userChoice == 1:
-        print("Implement adding data here") #files will be read in and added to the DB using this function
+if __name__ == '__main__':
 
-    elif userChoice == 2:
-        print("Implement deleting data here") #files can be selected for deletion from the DB here
 
-    else:
-        menu = True
+    while True:
+        userChoice = int(input("Type 1 to add datasets to the database)\nType 2 to remove data from the database)\nType 3 to exit the program)"))
+
+        if userChoice == 1:
+            fileLocation = (input("Enter the name of the file you wish to read (Example: C:/TSE datasets/CoL_LGS_21-22.tab)"))
+            dataSetReader.fileRead(fileLocation)
+            #files will be read in and added to the DB using this function
+
+        elif userChoice == 2:
+            print("Implement deleting data here") #files can be selected for deletion from the DB here
+
+        elif userChoice == 3:
+            print("Closing down")
+            break
+
+        else:
+            print("Invalid input")
 
         
 
