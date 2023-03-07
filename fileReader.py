@@ -1,11 +1,12 @@
 import geopandas
 
-class dataSetReader:
 
+class dataSetReader:
+    #fileRead function takes fileLocation as an argument
     def fileRead(fileLocation):
 
-        try:
+        try: #geopandas library is used to read .TAB and associated files
             test = geopandas.read_file(fileLocation)
             print(test)
-        except:
+        except: #if file is not found, error message is passed
             print("File could not be found")

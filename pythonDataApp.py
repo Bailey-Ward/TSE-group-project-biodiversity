@@ -1,6 +1,6 @@
 from fileReader import dataSetReader
 
-
+#main function and basic menu
 if __name__ == '__main__':
 
 
