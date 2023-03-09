@@ -1,23 +1,38 @@
-import psycopg2
+import psycopg2 
 from sqlalchemy import create_engine
+import geoalchemy2
+from fileReader import dataSetReader
 
-#connects to the database
-conn = psycopg2.connect("dbname=lincolnBiodiversity user=postgres password=lincolnBio")
 
-#creates a cursor object to work on the database
-cur = conn.cursor()
+class database:
+    def createDB():
+        #connects to the database
+        conn = psycopg2.connect("dbname=lincolnBiodiversity user=postgres password=lincolnBio")
 
-cur.execute("CREATE DATABASE lincolnBiodiversity;")
+        #creates a cursor object to work on the database
+        cur = conn.cursor()
 
-#creates the table
-cur.execute("CREATE EXTENSION postgis;")
-cur.execute("CREATE EXTENSION postgis_topology;")
-cur.execute("DROP TABLE IF EXISTS sites;")
-cur.execute("CREATE TABLE sites;")
+        cur.execute("CREATE DATABASE lincolnBiodiversity;")
 
-#commits the changes
-conn.commit()
+        #creates the table
+        cur.execute("CREATE EXTENSION postgis;")
+        cur.execute("CREATE EXTENSION postgis_topology;")
+        cur.execute("DROP TABLE IF EXISTS sites;")
+        cur.execute("CREATE TABLE sites;")
 
-#closes database connection
-cur.close()
-conn.close()
+        #commits the changes
+        conn.commit()
+
+        #closes database connection
+        cur.close()
+        conn.close()
+
+    def insertData(fileLocation):
+        
+        gdf = dataSetReader.fileRead(fileLocation)
+        conn = psycopg2.connect("dbname=lincolnBiodiversity user=postgres password=lincolnBio")
+        gdf.to_postGIS()
+
+        cur = conn.cursor()
+
+        cur.execute()
