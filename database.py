@@ -43,8 +43,8 @@ class database:
         conn = psycopg2.connect(dbname="lincolnBiodiversity", user="postgres", password="lincolnBio")
         cur = conn.cursor()
         
-        sql = "SELECT * FROM mytable"
-        gdf = gpd.read_postgis(sql, con=conn, geom_col="geom", crs="EPSG:4326")
+        sql = "SELECT * FROM sites"
+        gdf = gpd.read_postgis(sql, con=conn)
         print(gdf)
 
         cur.execute("DELETE FROM sites WHERE siteID = '{}' ".format(siteID))
