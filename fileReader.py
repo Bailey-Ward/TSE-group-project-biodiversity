@@ -1,4 +1,4 @@
-import geopandas
+import geopandas as gpd
 
 
 class dataSetReader:
@@ -6,7 +6,7 @@ class dataSetReader:
     def fileRead(fileLocation):
 
         try: #geopandas library is used to read .TAB and associated files
-            test = geopandas.read_file(fileLocation)
-            print(test)
+            tabFile = gpd.read_file(fileLocation)
+            return tabFile
         except: #if file is not found, error message is passed
             print("File could not be found")
