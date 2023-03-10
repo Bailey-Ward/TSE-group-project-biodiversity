@@ -1,4 +1,5 @@
 import psycopg2
+import geopandas as gpd
 from sqlalchemy import create_engine
 
 #connects to the database
@@ -14,6 +15,7 @@ cur.execute("CREATE EXTENSION postgis;")
 cur.execute("CREATE EXTENSION postgis_topology;")
 cur.execute("DROP TABLE IF EXISTS sites;")
 cur.execute("CREATE TABLE sites;")
+
 
 #commits the changes
 conn.commit()
