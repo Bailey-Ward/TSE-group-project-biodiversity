@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 import database
+=======
+from fileReader import dataSetReader
+from database import *
+
+>>>>>>> 2ba7c2e4bb992614292a8f1456f8752b32eabf4b
 
 
 #main function and basic menu
@@ -6,7 +12,7 @@ if __name__ == '__main__':
 
 
     while True:
-        userChoice = int(input("Type 1 to add datasets to the database)\nType 2 to remove data from the database)\nType 3 to exit the program)"))
+        userChoice = int(input("Type 1 to add a file to the database)\nType 2 to remove a site from the database)\nType 3 to exit the program)"))
 
         if userChoice == 1:
             fileLocation = (input("Enter the name of the file you wish to read (Example: C:/TSE datasets/CoL_LGS_21-22.tab)"))
@@ -14,7 +20,8 @@ if __name__ == '__main__':
             #files will be read in and added to the DB using this function
 
         elif userChoice == 2:
-            print("Implement deleting data here") #files can be selected for deletion from the DB here
+            siteID = int(input("Enter the site number for the site you wish to remove:"))
+            database.removeData(siteID) #entries can be selected for deletion from the DB here
 
         elif userChoice == 3:
             print("Closing down")
@@ -26,5 +33,5 @@ if __name__ == '__main__':
         
 
     
-
+#This project was the combined work of the Biodiversity Net Gain Data Integration team software engineering group at UOL
     
