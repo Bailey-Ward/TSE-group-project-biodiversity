@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import database
-=======
 from fileReader import dataSetReader
 from database import *
 
->>>>>>> 2ba7c2e4bb992614292a8f1456f8752b32eabf4b
 
 
 #main function and basic menu
