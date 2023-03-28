@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
         if userChoice == 1:
             fileLocation = (input("Enter the name of the file you wish to read (Example: C:/TSE datasets/CoL_LGS_21-22.tab)"))
-            database.database.insertData(fileLocation)
+            database.insertData(fileLocation)
             #files will be read in and added to the DB using this function
 
         elif userChoice == 2:
