@@ -1,5 +1,7 @@
 import psycopg2
 import geopandas as gpd
+import geopandas
+import pandas
 import sqlalchemy
 import geoalchemy2
 from fileReader import dataSetReader
@@ -30,7 +32,9 @@ class database:
 
     def insertData(fileLocation):
 
-        conn = psycopg2.connect(dbname="lincolnBiodiversity", user="postgres", password="lincolnBio")
+        database.createDB()
+
+        conn = psycopg2.connect(dbname="sites", user="postgres", password="lincolnBio")
         cur = conn.cursor()
 
 
