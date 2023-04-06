@@ -1,7 +1,8 @@
 import psycopg2
 import geopandas as gpd
 from fileReader import dataSetReader
-
+import sqlalchemy 
+import geoalchemy2
 
 class database:
     def createDB():
@@ -9,22 +10,25 @@ class database:
         conn = psycopg2.connect(dbname="lincolnBiodiversity", user="postgres", password="lincolnBio")
 
         #creates a cursor object to work on the database
-        cur = conn.cursor()
+        try:
+            cur = conn.cursor()
 
-        cur.execute("CREATE DATABASE lincolnBiodiversity;")
+            cur.execute("CREATE DATABASE lincolnBiodiversity;")
 
-        #creates the table
-        cur.execute("CREATE EXTENSION postgis;")
-        cur.execute("CREATE EXTENSION postgis_topology;")
-        cur.execute("DROP TABLE IF EXISTS sites;")
-        cur.execute("CREATE TABLE sites;")
+            #creates the table
+            cur.execute("CREATE EXTENSION postgis;")
+            cur.execute("CREATE EXTENSION postgis_topology;")
+            cur.execute("DROP TABLE IF EXISTS sites;")
+            cur.execute("CREATE TABLE sites;")
 
-        #commits the changes
-        conn.commit()
+            #commits the changes
+            conn.commit()
 
-        #closes database connection
-        cur.close()
-        conn.close()
+            #closes database connection
+            cur.close()
+            conn.close()
+        except:
+            print("Table already exists")
 
     def insertData(fileLocation):
 

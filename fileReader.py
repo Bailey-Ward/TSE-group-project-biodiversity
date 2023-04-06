@@ -7,6 +7,7 @@ class dataSetReader:
 
         try: #geopandas library is used to read .TAB and associated files
             tabFile = gpd.read_file(fileLocation)
-            return tabFile
+            gdf = gpd.GeoDataFrame(tabFile)
+            return gdf
         except: #if file is not found, error message is passed
             print("File could not be found")
