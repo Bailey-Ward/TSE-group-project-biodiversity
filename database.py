@@ -1,57 +1,41 @@
 import psycopg2
 import geopandas as gpd
-from fileReader import dataSetReader
-import sqlalchemy 
+from sqlalchemy import create_engine
 import geoalchemy2
 
 class database:
-    def createDB():
-        #connects to the database
-        conn = psycopg2.connect(dbname="lincolnBiodiversity", user="postgres", password="lincolnBio")
-
-        #creates a cursor object to work on the database
-        try:
-            cur = conn.cursor()
-
-            cur.execute("CREATE DATABASE lincolnBiodiversity;")
-
-            #creates the table
-            cur.execute("CREATE EXTENSION postgis;")
-            cur.execute("CREATE EXTENSION postgis_topology;")
-            cur.execute("DROP TABLE IF EXISTS sites;")
-            cur.execute("CREATE TABLE sites;")
-
-            #commits the changes
-            conn.commit()
-
-            #closes database connection
-            cur.close()
-            conn.close()
-        except:
-            print("Table already exists")
 
     def insertData(fileLocation):
 
-        conn = psycopg2.connect(dbname="lincolnBiodiversity", user="postgres", password="lincolnBio")
-        cur = conn.cursor()
+        engine = create_engine("postgresql://postgres:LincolnBio@localHost:5432/lincolnBiodiversity")
+
+        #geopandas library is used to read .TAB and associated files
+        tabFile = gpd.read_file(fileLocation)
+        print(tabFile)
+        gdf = gpd.GeoDataFrame(tabFile,crs="EPSG:27700" ,geometry="geometry")
+        gdf.to_postgis(name="sites", con = engine, if_exists="append", index=False) #adds items to the DB (not working as intended yet)
 
 
-        gdf = dataSetReader.fileRead(fileLocation)
+    def displayData():
+        engine = create_engine("postgresql://postgres:LincolnBio@localHost:5432/lincolnBiodiversity")
 
-        gdf.to_postgis(name="sites", con=conn, if_exists="append", index=False)
+        query = "SELECT * FROM sites"
+        gdf = gpd.GeoDataFrame.from_postgis(query, con=engine, geom_col="geometry")
+        print(gdf) #logic for printing the DB
 
-        cur.close()
-        conn.close()
 
     def removeData(siteID):
-        conn = psycopg2.connect(dbname="lincolnBiodiversity", user="postgres", password="lincolnBio")
-        cur = conn.cursor()
-        
-        sql = "SELECT * FROM sites"
-        gdf = gpd.read_postgis(sql, con=conn)
-        print(gdf)
 
-        cur.execute("DELETE FROM sites WHERE siteID = '{}' ".format(siteID))
+        engine = create_engine("postgresql://postgres:LincolnBio@localHost:5432/lincolnBiodiversity")
 
-        cur.close()
-        conn.close()
+        query = f"DELETE FROM sites WHERE sites.Site_ID = {siteID}" 
+
+        with engine.connect() as conn:
+            conn.execute(query)
+
+        gdf = gpd.GeoDataFrame.from_postgis(query, con=engine, geom_col="geometry")
+
+        gdf #removing records from the DB (also not working as intended yet)
+
+
+
