@@ -20,7 +20,7 @@ if __name__ == '__main__':
             database.removeData(siteID) #entries can be selected for deletion from the DB here
 
         elif userChoice == 3:
-            print("Closing down")
+            dataSetReader.cr
             break
 
         else:
