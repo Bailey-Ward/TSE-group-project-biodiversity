@@ -1,5 +1,5 @@
 from database import *
-import glob
+import glob as glob
 import os
 
 #main function and basic menu
