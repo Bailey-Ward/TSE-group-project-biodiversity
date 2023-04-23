@@ -29,12 +29,12 @@ class database:
             print(f"Error reading {filename} into a geoDataFrame.")
 
         try:
-            merged_gdf = gpd.GeoDataFrame(pd.concat(gdfs,ignore_index=True)).to_crs("EPSG:4326").set_index('Site_ID')       #each geodataframe in the list is concatinated, set to a co-ordinate reference system of EPSG:4326 and indexed via Site_ID
+            merged_gdf = gpd.GeoDataFrame(pd.concat(gdfs,ignore_index=False),crs="EPSG:27700",geometry='geometry')  #each geodataframe in the list is concatinated, set to a co-ordinate reference system of EPSG:4326 and indexed via Site_ID
         except:
             print("No files were found in the directory.")
 
         try:
-            merged_gdf.to_postgis(name="sites", con = engine, if_exists="replace", index=True)      #The concatinated geodataframe is then added to postGIS, the table sites is created, or if it exists it is replaced by a new table
+            merged_gdf.to_postgis(name="sites", con = engine, if_exists="replace", index=False)      #The concatinated geodataframe is then added to postGIS, the table sites is created, or if it exists it is replaced by a new table
             print("Items added to the database.")
         except:
             print("Items were not added to the database.")
