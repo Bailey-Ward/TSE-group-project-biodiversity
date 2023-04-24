@@ -7,9 +7,9 @@ import psycopg2
 
 class database:
 
-    def insertData(fileLocation):
-        
-        engine = create_engine("postgresql://postgres:lincolnBio@localHost:5432/lincolnBiodiversity")
+
+    def insertData(fileLocation, user, password, databaseName):
+        engine = create_engine(f"postgresql://{user}:{password}@localHost:5432/{databaseName}")
 
         #geopandas library is used to read .TAB and associated files
         try:
@@ -29,7 +29,7 @@ class database:
             print(f"Error reading {filename} into a geoDataFrame.")
 
         try:
-            merged_gdf = gpd.GeoDataFrame(pd.concat(gdfs,ignore_index=False),crs="EPSG:27700",geometry='geometry')  #each geodataframe in the list is concatinated, set to a co-ordinate reference system of EPSG:4326 and indexed via Site_ID
+            merged_gdf = gpd.GeoDataFrame(pd.concat(gdfs,ignore_index=False),crs="EPSG:27700",geometry='geometry')  #each geodataframe in the list is concatinated, set to a co-ordinate reference system of EPSG:27700
         except:
             print("No files were found in the directory.")
 
@@ -41,9 +41,9 @@ class database:
 
 
 
-    def displayData():
+    def displayData(user, password, databaseName):
         try:
-            engine = create_engine("postgresql://postgres:lincolnBio@localHost:5432/lincolnBiodiversity")
+            engine = create_engine(f"postgresql://{user}:{password}@localHost:5432/{databaseName}")
 
             query = "SELECT * FROM sites"
             gdf = gpd.GeoDataFrame.from_postgis(query, con=engine, geom_col="geometry")     #database is read into a geodataframe, then printed to the console
@@ -52,9 +52,9 @@ class database:
             print("Unable to display the database.")
 
 
-    def removeData(siteID):
+    def removeData(siteID, user, password, databaseName):
         
-            conn = psycopg2.connect(database='lincolnBiodiversity',user='postgres',password='lincolnBio')       #psycopg2 library used for connection here
+            conn = psycopg2.connect(database=databaseName, user=user, password=password)       #psycopg2 library used for connection here
 
             cur = conn.cursor()     #cursor object is created for accessing the DB
 
