@@ -1,7 +1,7 @@
 import geopandas as gpd
 import pandas as pd
 import glob
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import geoalchemy2
 import psycopg2
 
@@ -10,6 +10,10 @@ class database:
 
     def insertData(fileLocation, user, password, databaseName):
         engine = create_engine(f"postgresql://{user}:{password}@localHost:5432/{databaseName}")
+
+        with engine.connect() as conn:
+            conn.execute(text('CREATE EXTENSION IF NOT EXISTS "postgis";'))
+            conn.execute(text('CREATE EXTENSION IF NOT EXISTS "postgis_raster";')) #adds postgresql extensions
 
         #geopandas library is used to read .TAB and associated files
         try:
