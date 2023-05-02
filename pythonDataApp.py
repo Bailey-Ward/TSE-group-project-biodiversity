@@ -4,9 +4,10 @@ from database import *
 if __name__ == '__main__':
 
     try:
+        databaseName = input("Enter the name of the database you wish to connect to:\t")
         user = input("Enter the username for the DB connection:\t")
         password = input("Enter the password for the DB connection:\t")
-        databaseName = input("Enter the name of the database you wish to connect to:\t")
+
         while True:
             userChoice = input("Type 1 to add a file to the database)\nType 2 to remove a site from the database)\nType 3 to display all data from the DB)\nType 4 to exit the program\nInput:)")
             try:
