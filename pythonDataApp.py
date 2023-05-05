@@ -16,19 +16,19 @@ if __name__ == '__main__':
             try:
                 userChoice = int(userChoice) 
             except ValueError:
-                print("Input should be a number between 1 and 4.")
+                print("Input should be a number between 1 and 4.") #Any except messages need error popups George
                 continue
 
             if userChoice == 1:
                 fileLocation = (input("Enter the name of the directory you wish to read .tab files from (Example: C:/TSE_datasets):\t"))
-                #input file directory^^ george
+                #input file directory^^ George
                 try:
                     database.insertData(fileLocation, user, password, databaseName)
                 except FileNotFoundError:
-                    print("File was not found.")
+                    print("File was not found.") #popup
                     continue
                 except IOError:
-                    print("Error reading file.")
+                    print("Error reading file.") #popup
                     continue
                 #files will be read in and added to the DB using this function
 
@@ -37,21 +37,21 @@ if __name__ == '__main__':
                     database.displayData(user,password,databaseName)
                     database.removeData(user, password, databaseName) 
                 except:
-                    print("Error occured removing item from the database.")
+                    print("Error occured removing item from the database.") #popup
                 #entries can be selected for deletion from the DB here
 
             elif userChoice == 3:
                 try:
                     database.displayData(user, password, databaseName)      #prints everything currently in the DB
                 except:
-                    print("Error accessing the database.")
+                    print("Error accessing the database.") #popup
 
             elif userChoice == 4:
-                print("Closing down")
+                print("Closing down") #this exits the program
                 break
 
             else:
-                print("Input should be a number between 1 and 4.\n")
+                print("Input should be a number between 1 and 4.\n") #wont be needed when buttons are implemented
                 
     except Exception as e:
         print("An error has occurred:", e)
