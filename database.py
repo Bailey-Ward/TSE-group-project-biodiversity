@@ -38,7 +38,8 @@ class database:
             print("No files were found in the directory.")
 
         try:
-            merged_gdf.to_postgis(name="sites", con = engine, if_exists="replace", index=False)      #The concatinated geodataframe is then added to postGIS, the table sites is created, or if it exists it is replaced by a new table
+            tableName = input("What table would you like to export the data to?:\t").lower()
+            merged_gdf.to_postgis(name=tableName, con = engine, if_exists="replace", index=False)      #The concatinated geodataframe is then added to postGIS, the table sites is created, or if it exists it is replaced by a new table
             print("Items added to the database.")
         except:
             print("Items were not added to the database.")
@@ -48,21 +49,25 @@ class database:
     def displayData(user, password, databaseName):
         try:
             engine = create_engine(f"postgresql://{user}:{password}@localHost:5432/{databaseName}")
-
-            query = "SELECT * FROM sites"
+            tableName = input("Which table would you like to see?:\t").lower()
+            query = f"SELECT * FROM {tableName}"
             gdf = gpd.GeoDataFrame.from_postgis(query, con=engine, geom_col="geometry")     #database is read into a geodataframe, then printed to the console
             print(gdf) 
         except:
             print("Unable to display the database.")
 
 
-    def removeData(siteID, user, password, databaseName):
+    def removeData(user, password, databaseName):
         
             conn = psycopg2.connect(database=databaseName, user=user, password=password)       #psycopg2 library used for connection here
 
             cur = conn.cursor()     #cursor object is created for accessing the DB
 
-            cur.execute(f"SELECT COUNT(*) FROM public.sites WHERE \"Site_ID\" = '{siteID}'")        #SQL statement counts how many rows contain the site id input, if 0, the user is informed that the DB does not contain that siteID
+            tableName = input("Which table would you like to remove data from?").lower()
+
+            siteID = int(input("Enter the siteID you which to remove:\t"))
+
+            cur.execute(f"SELECT COUNT(*) FROM {tableName} WHERE \"Site_ID\" = '{siteID}'")        #SQL statement counts how many rows contain the site id input, if 0, the user is informed that the DB does not contain that siteID
             row_count = cur.fetchone()[0]
 
             if row_count == 0:
@@ -71,12 +76,12 @@ class database:
             else:
                 choice = input(f"Are you sure you want to delete site ID {siteID} from the database? y/n:\t").lower()
                 if choice == 'y':
-                    cur.execute(f"DELETE FROM public.sites WHERE \"Site_ID\" = '{siteID}'")     #If the siteID exists in the database, the function removes it and gives a confirmation message to the user
+                    cur.execute(f"DELETE FROM {tableName} WHERE \"Site_ID\" = '{siteID}'")     #If the siteID exists in the database, the function removes it and gives a confirmation message to the user
 
                     conn.commit()
                     cur.close()
                 
-                    print(f"Site {siteID} was successfully removed from the database.")
+                    print(f"Site {siteID} was successfully removed from {tableName}.")
 
                 elif choice =='n':
                     print(f"SiteID {siteID} was not deleted.")

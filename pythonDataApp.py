@@ -30,8 +30,8 @@ if __name__ == '__main__':
 
             elif userChoice == 2:
                 try:
-                    siteID = input("Enter the site number for the site you wish to remove:")
-                    database.removeData(siteID, user, password, databaseName) 
+                    database.displayData(user,password,databaseName)
+                    database.removeData(user, password, databaseName) 
                 except:
                     print("Error occured removing item from the database.")
                 #entries can be selected for deletion from the DB here
