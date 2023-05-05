@@ -1,23 +1,27 @@
 from database import *
+from GUI import *
+from loginGUI import *
 
 #main function and basic menu
 if __name__ == '__main__':
 
     try:
-        databaseName = input("Enter the name of the database you wish to connect to:\t")
-        user = input("Enter the username for the DB connection:\t")
-        password = input("Enter the password for the DB connection:\t")
+        databaseName = databaseText
+        user = usernameText
+        password = passwordText
 
         while True:
             userChoice = input("Type 1 to add a file to the database)\nType 2 to remove a site from the database)\nType 3 to display all data from the DB)\nType 4 to exit the program\nInput:)")
+            #implement button for this ^^ George
             try:
-                userChoice = int(userChoice)
+                userChoice = int(userChoice) 
             except ValueError:
                 print("Input should be a number between 1 and 4.")
                 continue
 
             if userChoice == 1:
                 fileLocation = (input("Enter the name of the directory you wish to read .tab files from (Example: C:/TSE_datasets):\t"))
+                #input file directory^^ george
                 try:
                     database.insertData(fileLocation, user, password, databaseName)
                 except FileNotFoundError:
