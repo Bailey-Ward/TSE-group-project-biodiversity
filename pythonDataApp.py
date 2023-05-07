@@ -1,6 +1,7 @@
 from database import *
-from GUI import *
 from loginGUI import *
+from GUI import *
+
 
 #main function and basic menu
 if __name__ == '__main__':
