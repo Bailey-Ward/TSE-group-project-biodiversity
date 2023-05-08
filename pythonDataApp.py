@@ -1,5 +1,4 @@
 from database import *
-
 #main function and basic menu
 if __name__ == '__main__':
 
@@ -30,10 +29,10 @@ if __name__ == '__main__':
 
             elif userChoice == 2:
                 try:
-                    database.displayData(user,password,databaseName)
                     database.removeData(user, password, databaseName) 
-                except:
+                except Exception as e:
                     print("Error occured removing item from the database.")
+                    
                 #entries can be selected for deletion from the DB here
 
             elif userChoice == 3:

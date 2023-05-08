@@ -18,9 +18,14 @@ class database:
         #geopandas library is used to read .TAB and associated files
         try:
             allTabFile = glob.glob("{}/*.tab".format(fileLocation))     #glob library is used to select all files in the directory which end with .tab
-            print(f"found {len(allTabFile)} files: {allTabFile}")
+            if len(allTabFile) >= 1:
+                print(f"found {len(allTabFile)} files: {allTabFile}")
+            else:
+                print("No files were found in this directory.")
+                return
         except:
             print("No files were found in this directory.")
+            
 
         gdfs = []
 
@@ -63,7 +68,7 @@ class database:
 
             cur = conn.cursor()     #cursor object is created for accessing the DB
 
-            tableName = input("Which table would you like to remove data from?").lower()
+            tableName = input("Which table would you like to remove data from?\t").lower()
 
             siteID = int(input("Enter the siteID you which to remove:\t"))
 
